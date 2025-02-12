@@ -16,4 +16,6 @@ public interface UsuarioService {
     UsuarioOutputDto actualizarUsuario(Long id, UsuarioInputDto dto);
 
     void eliminarUsuario(Long id);
+
+    void asignarProfesorACurso(Long profesorId, Long cursoId);
 }

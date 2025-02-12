@@ -12,11 +12,12 @@ public class ClaseOutputDto {
     private String contenido;
     private String tareas;
     private String profesor;
+    private Long cursoId;
 
     public ClaseOutputDto() {
     }
 
-    public ClaseOutputDto(Long id, String fechaClase, int claseNumero, String unidad, String caracterClase, String contenido, String tareas, String profesor) {
+    public ClaseOutputDto(Long id, String fechaClase, int claseNumero, String unidad, String caracterClase, String contenido, String tareas, String profesor, Long cursoId) {
         this.id = id;
         this.fechaClase = fechaClase;
         this.claseNumero = claseNumero;
@@ -25,6 +26,7 @@ public class ClaseOutputDto {
         this.contenido = contenido;
         this.tareas = tareas;
         this.profesor = profesor;
+        this.cursoId = cursoId;
     }
 
     public Long getId() {
@@ -57,6 +59,10 @@ public class ClaseOutputDto {
 
     public String getProfesor() {
         return profesor;
+    }
+
+    public Long getCursoId() {
+        return cursoId;
     }
 }
 

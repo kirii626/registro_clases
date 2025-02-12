@@ -1,4 +1,4 @@
-package com.example.registro_clase.controllers;
+package com.example.registro_clase.controllers.administracion;
 
 import com.example.registro_clase.dtos.observacion.ObservacionInputDto;
 import com.example.registro_clase.dtos.observacion.ObservacionOutputDto;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/observaciones")
+@RequestMapping("/api/admin/observaciones")
 public class ObservacionController {
     private final ObservacionService observacionService;
 

@@ -9,11 +9,12 @@ public class ClaseInputDto {
     private String contenido;
     private String tareas;
     private Long profesorId;
+    private Long cursoId;
 
     public ClaseInputDto() {
     }
 
-    public ClaseInputDto(String fechaClase, int claseNumero, String unidad, String caracterClase, String contenido, String tareas, Long profesorId) {
+    public ClaseInputDto(String fechaClase, int claseNumero, String unidad, String caracterClase, String contenido, String tareas, Long profesorId, Long cursoId) {
         this.fechaClase = fechaClase;
         this.claseNumero = claseNumero;
         this.unidad = unidad;
@@ -21,6 +22,7 @@ public class ClaseInputDto {
         this.contenido = contenido;
         this.tareas = tareas;
         this.profesorId = profesorId;
+        this.cursoId = cursoId;
     }
 
     public String getFechaClase() {
@@ -49,5 +51,9 @@ public class ClaseInputDto {
 
     public Long getProfesorId() {
         return profesorId;
+    }
+
+    public Long getCursoId() {
+        return cursoId;
     }
 }

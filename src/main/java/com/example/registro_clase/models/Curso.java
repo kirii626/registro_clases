@@ -24,7 +24,7 @@ public class Curso {
     )
     private Set<Usuario> profesores = new HashSet<>();
 
-    @OneToOne(mappedBy = "curso", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
     private Libro libro;
 
     public Curso() {

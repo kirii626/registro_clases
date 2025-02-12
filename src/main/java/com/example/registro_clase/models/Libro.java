@@ -2,6 +2,7 @@ package com.example.registro_clase.models;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,15 +20,14 @@ public class Libro {
     @OneToMany(mappedBy = "libro", cascade = CascadeType.ALL)
     private Set<Clase> clases = new HashSet<>();
 
-    private String fechaCreacion;
+    private LocalDateTime fechaCreacion;
 
     public Libro() {
     }
 
-    public Libro(Curso curso, Set<Clase> clases, String fechaCreacion) {
+    public Libro(Curso curso) {
         this.curso = curso;
-        this.clases = clases;
-        this.fechaCreacion = fechaCreacion;
+        this.fechaCreacion = LocalDateTime.now();
     }
 
     public void agregarClase(Clase clase) {
@@ -55,11 +55,11 @@ public class Libro {
         this.clases = clases;
     }
 
-    public String getFechaCreacion() {
+    public LocalDateTime getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(String fechaCreacion) {
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 

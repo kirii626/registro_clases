@@ -19,7 +19,7 @@ public class Usuario {
     private String contrasena;
 
     @Enumerated(EnumType.STRING)
-    private Rol rol = Rol.PROFESOR;
+    private Rol rol = Rol.ROLE_PROFESOR;
 
     @ManyToMany(mappedBy = "profesores")
     private Set<Curso> cursos = new HashSet<>();

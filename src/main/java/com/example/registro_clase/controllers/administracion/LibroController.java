@@ -1,4 +1,4 @@
-package com.example.registro_clase.controllers;
+package com.example.registro_clase.controllers.administracion;
 
 import com.example.registro_clase.dtos.libro.LibroInputDto;
 import com.example.registro_clase.dtos.libro.LibroOutputDto;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/libros")
+@RequestMapping("/api/admin/libros")
 public class LibroController {
     private final LibroService libroService;
 

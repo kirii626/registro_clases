@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -30,13 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String requestURI = request.getRequestURI();
 
-        if (requestURI.startsWith("/h2-console")) {
-            chain.doFilter(request, response);
-            return;
-        }
-
-        // Allow access to public endpoints
-        if (requestURI.startsWith("/public/") || requestURI.startsWith("/api/auth/") ||
+        if (requestURI.startsWith("/h2-console") || requestURI.startsWith("/public/") || requestURI.startsWith("/api/auth/") ||
                 requestURI.startsWith("/v3/api-docs/") || requestURI.startsWith("/swagger-ui/")) {
             chain.doFilter(request, response);
             return;
@@ -46,12 +42,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = null;
         String username = null;
 
-        // Handle the case where the Authorization header is missing
         if (header == null || !header.startsWith("Bearer ")) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType("application/json");
             response.getWriter().write("{\"message\": \"Authorization header is missing\"}");
-            return; // Stops the execution of the filter
+            return;
         }
 
         token = header.substring(7);
@@ -60,20 +55,26 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         } catch (Exception e) {
             logger.error("Error extracting username from token", e);
         }
-        // Handle the case where the token is invalid or can´t extract the username
+
         if (username == null || !jwtUtils.validateToken(token, username)) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType("application/json");
             response.getWriter().write("{\"message\": \"Invalid or expired token\"}");
             return;
         }
 
-        // Sets the security context if the token is valid and the user is not authenticated
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             if (jwtUtils.validateToken(token, userDetails.getUsername())) {
+
+                List<String> roles = jwtUtils.extractRoles(token);
+                var authorities = roles.stream()
+                        .map(String::toUpperCase)
+                        .map(org.springframework.security.core.authority.SimpleGrantedAuthority::new)
+                        .toList();
+
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
+                        userDetails, null, authorities);
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }

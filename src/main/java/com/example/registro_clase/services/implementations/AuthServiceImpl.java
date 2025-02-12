@@ -14,6 +14,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AuthServiceImpl implements AuthService {
 
@@ -42,13 +44,18 @@ public class AuthServiceImpl implements AuthService {
 
             String username = authentication.getName();
 
+            List<String> roles = authentication.getAuthorities()
+                    .stream()
+                    .map(authority -> authority.getAuthority())
+                    .toList();
+
             String role = authentication.getAuthorities()
                     .stream()
                     .findFirst()
                     .map(authority -> authority.getAuthority())
-                    .orElse("PROFESOR");  // Valor predeterminado si no hay roles
+                    .orElse("ROLE_PROFESOR");  // Valor predeterminado si no hay roles
 
-            return jwtUtils.generateToken(username);
+            return jwtUtils.generateToken(username, roles);
         } catch (BadCredentialsException e) {
             throw new InvalidCredentialsExc("Invalid email or password");
         }

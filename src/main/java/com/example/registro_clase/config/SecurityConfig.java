@@ -3,6 +3,7 @@ package com.example.registro_clase.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -41,9 +42,9 @@ public class SecurityConfig {
                         authorizeRequests
                                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html" ,"/h2-console/**").permitAll()
                                 .requestMatchers( "/api/auth/**", "/index.html" ).permitAll()
-                                .requestMatchers("/api/profesores/**").hasAuthority("PROFESOR")
-                                .requestMatchers("/api/admin/**").hasAuthority("ADMINISTRACION")// Allow public access to specific endpoints
-                                .anyRequest().denyAll() // All other requests must be authenticated
+                                .requestMatchers("/api/profesor/**").hasAuthority("ROLE_PROFESOR")
+                                .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMINISTRACION")
+                                .anyRequest().denyAll()
                 )
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)

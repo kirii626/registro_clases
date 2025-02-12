@@ -1,4 +1,4 @@
-package com.example.registro_clase.controllers;
+package com.example.registro_clase.controllers.administracion;
 
 import com.example.registro_clase.dtos.curso.CursoInputDto;
 import com.example.registro_clase.dtos.curso.CursoOutputDto;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/cursos")
+@RequestMapping("/api/admin/cursos")
 public class CursoController {
     private final CursoService cursoService;
 

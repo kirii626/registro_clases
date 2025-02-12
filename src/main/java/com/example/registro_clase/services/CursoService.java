@@ -12,4 +12,6 @@ public interface CursoService {
     CursoOutputDto crearCurso(CursoInputDto dto);
     CursoOutputDto actualizarCurso(Long id, CursoInputDto dto);
     void eliminarCurso(Long id);
+
+    List<CursoOutputDto> obtenerCursosPorProfesor(String emailProfesor);
 }

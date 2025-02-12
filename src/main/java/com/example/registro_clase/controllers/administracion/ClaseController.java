@@ -1,4 +1,4 @@
-package com.example.registro_clase.controllers;
+package com.example.registro_clase.controllers.administracion;
 
 import com.example.registro_clase.dtos.clase.ClaseInputDto;
 import com.example.registro_clase.dtos.clase.ClaseOutputDto;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/clases")
+@RequestMapping("/api/admin/clases")
 public class ClaseController {
     private final ClaseService claseService;
 
@@ -25,11 +25,6 @@ public class ClaseController {
     @GetMapping("/{id}")
     public ClaseOutputDto obtenerClasePorId(@PathVariable Long id) {
         return claseService.obtenerClasePorId(id);
-    }
-
-    @PostMapping
-    public ClaseOutputDto crearClase(@RequestBody ClaseInputDto dto) {
-        return claseService.crearClase(dto);
     }
 
     @PutMapping("/{id}")

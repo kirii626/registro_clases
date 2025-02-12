@@ -7,6 +7,9 @@ import com.example.registro_clase.models.Observacion;
 import com.example.registro_clase.models.Usuario;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class ObservacionMapper {
 
@@ -27,5 +30,9 @@ public class ObservacionMapper {
                 observacion.getAdmin().getNombre(),
                 observacion.getClase().getId()
         );
+    }
+
+    public List<ObservacionOutputDto> toDtoList(List<Observacion> observaciones) {
+        return observaciones.stream().map(this::toDto).collect(Collectors.toList());
     }
 }

@@ -1,17 +1,19 @@
 package com.example.registro_clase.dtos.libro;
 
+import java.time.LocalDateTime;
+
 public class LibroInputDto {
 
-    private String fechaCreacion;
+    private LocalDateTime fechaCreacion;
 
     public LibroInputDto() {
     }
 
-    public LibroInputDto(String fechaCreacion) {
+    public LibroInputDto(LocalDateTime fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public String getFechaCreacion() {
+    public LocalDateTime getFechaCreacion() {
         return fechaCreacion;
     }
 }
